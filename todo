@@ -1,0 +1,9 @@
+docker run --name zabbix-server-mysql -t \
+      -e DB_SERVER_HOST=127.0.0.1 \
+      -e MYSQL_DATABASE="zabbix" \
+      -e MYSQL_USER="gitpod" \
+      -e MYSQL_PASSWORD="" \
+      -e MYSQL_ROOT_PASSWORD="" \
+      -p 10051:10051 \
+      --restart unless-stopped \
+      -d zabbix/zabbix-server-mysql:alpine-7.0-latest
