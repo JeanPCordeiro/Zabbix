@@ -37,3 +37,21 @@ docker run --name zabbix-web-nginx-mysql -t \
       -p 80:8080 \
       --restart unless-stopped \
       -d zabbix/zabbix-web-nginx-mysql:alpine-7.0-latest
+
+
+curl --request POST \
+      --url 'http://localhost/api_jsonrpc.php' \
+      --header 'Content-Type: application/json-rpc' \
+      --data '{"jsonrpc":"2.0","method":"apiinfo.version","params":{},"id":1}'
+
+
+curl --request POST \
+         --url 'http://localhost/api_jsonrpc.php' \
+         --header 'Content-Type: application/json-rpc' \
+         --data '{"jsonrpc":"2.0","method":"user.login","params":{"username":"Admin","password":"zabbix"},"id":1}'
+
+
+curl --request POST \
+         --url 'http://localhost/api_jsonrpc.php' \
+         --header 'Content-Type: application/json-rpc' \
+         --data '{"jsonrpc":"2.0","method":"host.get","params":{"output":["hostname"]},"auth":"ec810ba923ee1c241793717ae233bb48","id":1}'

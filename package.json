@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@fjedi/zabbix-client": "^2.0.0",
+    "zabbix-api": "^0.0.1",
+    "zabbix-cli-ts": "^1.1.0",
+    "zabbix-client": "^1.2.7"
+  }
+}
