@@ -1,6 +1,5 @@
 docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 zabbix-net
 
-
 docker run --name mysql-server -t \
       -e MYSQL_DATABASE="zabbix" \
       -e MYSQL_USER="zabbix" \
@@ -11,8 +10,6 @@ docker run --name mysql-server -t \
       -d mysql:8.0-oracle \
       --character-set-server=utf8 --collation-server=utf8_bin \
       --default-authentication-plugin=mysql_native_password
-
-
 
 docker run --name zabbix-server-mysql -t \
       -e DB_SERVER_HOST="mysql-server" \
@@ -25,7 +22,6 @@ docker run --name zabbix-server-mysql -t \
       --restart unless-stopped \
       -d zabbix/zabbix-server-mysql:alpine-7.0-latest
 
-
 docker run --name zabbix-web-nginx-mysql -t \
       -e ZBX_SERVER_HOST="zabbix-server-mysql" \
       -e DB_SERVER_HOST="mysql-server" \
@@ -37,29 +33,3 @@ docker run --name zabbix-web-nginx-mysql -t \
       -p 80:8080 \
       --restart unless-stopped \
       -d zabbix/zabbix-web-nginx-mysql:alpine-7.0-latest
-
-
-
-
-
-
-
-
-
-
-curl --request POST \
-      --url 'http://localhost/api_jsonrpc.php' \
-      --header 'Content-Type: application/json-rpc' \
-      --data '{"jsonrpc":"2.0","method":"apiinfo.version","params":{},"id":1}'
-
-
-curl --request POST \
-         --url 'http://localhost/api_jsonrpc.php' \
-         --header 'Content-Type: application/json-rpc' \
-         --data '{"jsonrpc":"2.0","method":"user.login","params":{"username":"Admin","password":"zabbix"},"id":1}'
-
-
-curl --request POST \
-         --url 'http://localhost/api_jsonrpc.php' \
-         --header 'Content-Type: application/json-rpc' \
-         --data '{"jsonrpc":"2.0","method":"host.get","params":{"output":["hostname"]},"auth":"ec810ba923ee1c241793717ae233bb48","id":1}'
